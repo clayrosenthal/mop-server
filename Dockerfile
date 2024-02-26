@@ -1,7 +1,8 @@
 # syntax=docker/dockerfile:1 
-# open to using node:21-alpine as well
 
-FROM node:21-bookworm
+# or debian/bookworm
+ARG DISTRO=alpine
+FROM node:21-${DISTRO}
 WORKDIR /usr/src/server
 
 COPY . .

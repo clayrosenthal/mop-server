@@ -1,0 +1,17 @@
+# Compose for Means-Of-Production Library of things
+#
+version: '3.8'
+name: "means-of-production"
+
+services:
+  server:
+    build: ${MOP_DIR}/server
+    ports:
+      - 4000:4000
+
+  client:
+    build: ${MOP_DIR}/webclient
+    ports:
+      - 3000:3000
+    depends_on:
+      - server

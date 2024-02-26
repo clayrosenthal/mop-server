@@ -1,6 +1,9 @@
+# basics
 .git
 .gitignore
 dist
 node_modules
 Dockerfile
 
+# extra
+infra

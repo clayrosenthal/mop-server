@@ -1,0 +1,48 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: means-of-production
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: means-of-production
+  namespace: means-of-production
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: means-server
+spec:
+  selector:
+    matchLabels:
+      app: means-server
+  template:
+    metadata:
+      labels:
+        app: means-server
+    spec:
+      containers:
+      - name: means-server
+        image: means-of-production/server:testing
+        imagePullPolicy: IfNotPresent # needed for local building
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - name: means-server
+          containerPort: 4000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: means-server
+spec:
+  selector:
+    app: means-server
+  ports:
+  - port: 80
+    targetPort: means-server
+
